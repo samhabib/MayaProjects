@@ -1,8 +1,9 @@
 //Maya ASCII 2017 scene
-//Name: ball.ma
-//Last modified: Sat, Aug 05, 2017 11:53:13 PM
+//Name: ball_move.ma
+//Last modified: Sat, Aug 05, 2017 08:00:35 AM
 //Codeset: 1252
 requires maya "2017";
+requires "stereoCamera" "10.0";
 requires "stereoCamera" "10.0";
 currentUnit -l centimeter -a degree -t film;
 fileInfo "application" "maya";
@@ -14,17 +15,17 @@ fileInfo "license" "student";
 createNode transform -s -n "persp";
 	rename -uid "403D3812-4D4D-B3A0-DA82-59960C807AAC";
 	setAttr ".v" no;
-	setAttr ".t" -type "double3" -0.63576847032753481 3.4291190815052186 10.701200733614378 ;
-	setAttr ".r" -type "double3" -17.738352729602628 -3.399999999999987 9.9567589887152275e-017 ;
+	setAttr ".t" -type "double3" -1.0854775749168029 9.0662285145116002 17.749768665988078 ;
+	setAttr ".r" -type "double3" -28.53835272960276 -0.59999999999978104 1.4909667575893431e-016 ;
 createNode camera -s -n "perspShape" -p "persp";
 	rename -uid "0372904D-405D-5BE8-076B-72AF817BC094";
 	setAttr -k off ".v" no;
 	setAttr ".fl" 34.999999999999993;
-	setAttr ".coi" 11.255165763511176;
+	setAttr ".coi" 30.085471635693704;
 	setAttr ".imn" -type "string" "persp";
 	setAttr ".den" -type "string" "persp_depth";
 	setAttr ".man" -type "string" "persp_mask";
-	setAttr ".tp" -type "double3" -1.1102230246251565e-016 0 0 ;
+	setAttr ".tp" -type "double3" 0 0 -23.519296105574874 ;
 	setAttr ".hc" -type "string" "viewSet -p %camera";
 	setAttr ".ai_translator" -type "string" "perspective";
 createNode transform -s -n "top";
@@ -93,20 +94,79 @@ createNode nurbsSurface -n "ball_geoShape" -p "ball_geo";
 	setAttr ".cps" 4;
 	setAttr ".nufa" 4.5;
 	setAttr ".nvfa" 4.5;
+createNode parentConstraint -n "ball_geo_parentConstraint1" -p "ball_geo";
+	rename -uid "B7D0BCD4-49E4-6E2B-1A44-B599839CCC7B";
+	addAttr -dcb 0 -ci true -k true -sn "w1" -ln "ball_animW1" -dv 1 -min 0 -at "double";
+	setAttr -k on ".nds";
+	setAttr -k off ".v";
+	setAttr -k off ".tx";
+	setAttr -k off ".ty";
+	setAttr -k off ".tz";
+	setAttr -k off ".rx";
+	setAttr -k off ".ry";
+	setAttr -k off ".rz";
+	setAttr -k off ".sx";
+	setAttr -k off ".sy";
+	setAttr -k off ".sz";
+	setAttr ".it" no;
+	setAttr ".erp" yes;
+	setAttr -k on ".w1";
+createNode transform -n "ball_anim";
+	rename -uid "9C7C53BF-4488-EFE3-D94D-12B334896D62";
+	setAttr -l on -k off ".v";
+	setAttr -l on -k off ".rx";
+	setAttr -l on -k off ".ry";
+	setAttr -l on -k off ".rz";
+	setAttr -l on -k off ".sx";
+	setAttr -l on -k off ".sy";
+	setAttr -l on -k off ".sz";
+createNode nurbsCurve -n "ball_animShape" -p "ball_anim";
+	rename -uid "61B0CF88-465C-48A5-3A3C-08BFA6D13975";
+	setAttr -k off ".v";
+	setAttr ".cc" -type "nurbsCurve" 
+		1 24 0 no 3
+		25 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24
+		25
+		-1.0000000000000009 0 -1.0000000000000002
+		-1.0000000000000009 0 -3.0000000000000009
+		-2.0000000000000018 0 -3.0000000000000009
+		0 0 -5.0000000000000009
+		2.0000000000000018 0 -3.0000000000000009
+		1.0000000000000009 0 -3.0000000000000009
+		1.0000000000000009 0 -1.0000000000000002
+		3.0000000000000027 0 -1.0000000000000002
+		3.0000000000000027 0 -2.0000000000000004
+		5.0000000000000044 0 0
+		3.0000000000000027 0 2.0000000000000004
+		3.0000000000000027 0 1.0000000000000002
+		1.0000000000000009 0 1.0000000000000002
+		1.0000000000000009 0 3.0000000000000009
+		2.0000000000000018 0 3.0000000000000009
+		0 0 5.0000000000000009
+		-2.0000000000000018 0 3.0000000000000009
+		-1.0000000000000009 0 3.0000000000000009
+		-1.0000000000000009 0 1.0000000000000002
+		-3.0000000000000027 0 1.0000000000000002
+		-3.0000000000000027 0 2.0000000000000004
+		-5.0000000000000044 0 0
+		-3.0000000000000027 0 -2.0000000000000004
+		-3.0000000000000027 0 -1.0000000000000002
+		-1.0000000000000009 0 -1.0000000000000002
+		;
 createNode lightLinker -s -n "lightLinker1";
-	rename -uid "90D343F8-4E7E-B685-FAB6-B78C87643ACB";
+	rename -uid "99D63035-46F3-32DB-34B7-48983699268C";
 	setAttr -s 4 ".lnk";
 	setAttr -s 4 ".slnk";
 createNode shapeEditorManager -n "shapeEditorManager";
-	rename -uid "38DDE52B-4D89-A3D9-DAAA-B9B718D68868";
+	rename -uid "629F73C2-42ED-9847-775A-A4BCEB2C9132";
 createNode poseInterpolatorManager -n "poseInterpolatorManager";
-	rename -uid "14AB07ED-4064-30AA-B48A-4C8193DACA5F";
+	rename -uid "417D87C6-4A71-1F9B-33D1-1A966B57AA1D";
 createNode displayLayerManager -n "layerManager";
-	rename -uid "28D9145C-43E8-58A5-657D-F9B68FB124D5";
+	rename -uid "1FD654F0-44A6-36CF-F46A-12BAEB39FE17";
 createNode displayLayer -n "defaultLayer";
 	rename -uid "46E0675A-4BE8-CCB9-6032-7AA428175664";
 createNode renderLayerManager -n "renderLayerManager";
-	rename -uid "BEC85C9C-448A-9FDA-E9F2-FA876A88B5D4";
+	rename -uid "E9CD5D43-48EC-4319-3813-7EB91E8BD170";
 createNode renderLayer -n "defaultRenderLayer";
 	rename -uid "5827AA29-4DD9-DE39-9475-24A87904FEF7";
 	setAttr ".g" yes;
@@ -261,7 +321,26 @@ select -ne :defaultResolution;
 select -ne :hardwareRenderGlobals;
 	setAttr ".ctrs" 256;
 	setAttr ".btrs" 512;
+connectAttr "ball_geo_parentConstraint1.ctx" "ball_geo.tx";
+connectAttr "ball_geo_parentConstraint1.cty" "ball_geo.ty";
+connectAttr "ball_geo_parentConstraint1.ctz" "ball_geo.tz";
+connectAttr "ball_geo_parentConstraint1.crx" "ball_geo.rx";
+connectAttr "ball_geo_parentConstraint1.cry" "ball_geo.ry";
+connectAttr "ball_geo_parentConstraint1.crz" "ball_geo.rz";
 connectAttr "makeNurbSphere1.os" "ball_geoShape.cr";
+connectAttr "ball_geo.ro" "ball_geo_parentConstraint1.cro";
+connectAttr "ball_geo.pim" "ball_geo_parentConstraint1.cpim";
+connectAttr "ball_geo.rp" "ball_geo_parentConstraint1.crp";
+connectAttr "ball_geo.rpt" "ball_geo_parentConstraint1.crt";
+connectAttr "ball_anim.t" "ball_geo_parentConstraint1.tg[1].tt";
+connectAttr "ball_anim.rp" "ball_geo_parentConstraint1.tg[1].trp";
+connectAttr "ball_anim.rpt" "ball_geo_parentConstraint1.tg[1].trt";
+connectAttr "ball_anim.r" "ball_geo_parentConstraint1.tg[1].tr";
+connectAttr "ball_anim.ro" "ball_geo_parentConstraint1.tg[1].tro";
+connectAttr "ball_anim.s" "ball_geo_parentConstraint1.tg[1].ts";
+connectAttr "ball_anim.pm" "ball_geo_parentConstraint1.tg[1].tpm";
+connectAttr "ball_geo_parentConstraint1.w1" "ball_geo_parentConstraint1.tg[1].tw"
+		;
 relationship "link" ":lightLinker1" ":initialShadingGroup.message" ":defaultLightSet.message";
 relationship "link" ":lightLinker1" ":initialParticleSE.message" ":defaultLightSet.message";
 relationship "link" ":lightLinker1" "lambert2SG.message" ":defaultLightSet.message";
@@ -287,4 +366,4 @@ connectAttr "ball_shader.msg" ":defaultShaderList1.s" -na;
 connectAttr "ball_tex_place2d.msg" ":defaultRenderUtilityList1.u" -na;
 connectAttr "defaultRenderLayer.msg" ":defaultRenderingList1.r" -na;
 connectAttr "ball_tex_ramp.msg" ":defaultTextureList1.tx" -na;
-// End of ball.ma
+// End of ball_move.ma
