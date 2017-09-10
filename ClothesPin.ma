@@ -1,5 +1,6 @@
 //Maya ASCII 2017 scene
 //Name: ClothesPin.ma
+
 //Last modified: Sat, Apr 29, 2017 04:18:20 AM
 //Codeset: 1252
 requires maya "2017";
